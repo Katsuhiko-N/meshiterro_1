@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
+  # devise_for :admins
   devise_for :users
+  
+  devise_for :admin, skip:[:registrations, :password], controllers:{
+    sessions: 'admin/sessions'
+  }
+  
   # ルーティング自動追加
   root to: 'homes#top'
   get 'homes/about' => 'homes#about', as: "about"
