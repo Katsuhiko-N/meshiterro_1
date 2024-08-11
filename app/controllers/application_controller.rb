@@ -1,30 +1,30 @@
 class ApplicationController < ActionController::Base
     
     before_action :authenticate_user!, except: [:top], unless: :admin_controller?
-    before_action :configure_permitted_parameters, if: :devise_controller?
-    
-    def after_sign_in_path_for(resource)
-        post_images_path
-    end
-    
-    def after_sign_out_path_for(resource)
-        about_path
-    end
     
     
     private
     
+    # ユーザの識別をまとめちゃう
+    def configure_authentication
+        # admin配下コントローラならadminかどうかの識別
+        if admin_controller?
+            authenticate_admin!
+            # admin以外のコントローラならuserかどうかの識別
+            # ただしhomeのtopアクションはのぞく
+        else
+            authenticate_user! unless action_is_public?
+        end
+    end
+    
+    
     def admin_controller?
-        self.class.module_parent_name == "Admin"
+        self.class.module_parent_name == 'Admin'
     end
     
-    
-    protected
-    
-    def configure_permitted_parameters
-        devise_parameter_sanitizer.permit(:sign_up, keys: [:email])
+    def action_is_public?
+        controller_name == 'homes' && action_name == 'top'
     end
-    
     
     
 end
