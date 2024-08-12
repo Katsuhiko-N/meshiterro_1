@@ -6,7 +6,7 @@
 
         <div class="mx-auto text-center">
             <!-- ここからを追加 -->
-            <p>ユーザー名と<br>パスワードを入力してください。</p>
+            <p>emailと<br>パスワードを入力してください。</p>
             <!-- ここまでを追加 -->
             
             <!-- ここからを削除 -->
@@ -20,7 +20,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text" aria-hidden="true"><i class="fas fa-user"></i></span>
             </div>
-            <%= f.text_field :name, autofocus: true, class: "form-control", placeholder: "ユーザー名" %>
+            <%= f.email_field :email, autofocus: true, class: "form-control", placeholder: "email" %>
             <!-- ここまでを追加 -->
 
             <!-- ここからを削除 -->
